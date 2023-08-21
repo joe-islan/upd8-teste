@@ -13,6 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', function()
+{
+    return redirect()->route('clientes.index');
+});
+
+Route::prefix('clients')->group(function () {
+    Route::get('/', [\App\Http\Controllers\ClientFrontController::class, 'index'])->name('clientes.index');
+    Route::get('create', [\App\Http\Controllers\ClientFrontController::class, 'create'])->name('clientes.create');
+    Route::get('edit/{id}', [\App\Http\Controllers\ClientFrontController::class, 'edit'])->name('clientes.edit');
+    Route::get('{id}', [\App\Http\Controllers\ClientFrontController::class, 'show'])->name('clientes.show');
 });
